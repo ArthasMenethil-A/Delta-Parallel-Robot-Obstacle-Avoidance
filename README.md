@@ -56,5 +56,16 @@ The most challenging task in this section is none of three mentioned above, but 
 -------
 Needs researching. 
 
+### 1.4 - Errors
+-------
+Before starting the project there are a bunch of errors that need attention: 
+
+1. PID controller fine-tuning: $k_p, k_i, k_d$
+2. Make the code faster: Either by converting from Python to C++ (which is really time consuming so I don't think we'll be using it) or by finding a way to compile Python code to make it faster
+3. Geometrical errors of kinematics calculations 
+4. Calibration with camera
+5. Homing errors
+6. The Code is really messy and the user interface is lacking
+
 ## 2 - REFERENCES 
 ------
