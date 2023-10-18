@@ -22,7 +22,6 @@ There are four key elements to this project:
 1. Object Detection
 2. Grasping, Moving, and Calibration
 3. Obstacle Avoidance
-4. Dropping Tube
 
 These four elements need to be implemented separately and then fused together. So let's talk about each of them individually. 
 
