@@ -12,7 +12,7 @@ And here are some of my Articles regarding these researchs:
 ...WIP...
 
 Overview: 
-- Outline
+- Outline and Introduction
   - Object Detection
   - Grasping, Moving, and Calibration
   - Obstacle Avoidance
