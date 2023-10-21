@@ -13,7 +13,10 @@ And here are some of my Articles regarding these researchs:
 
 Overview: 
 - Outline
-
+  - Object Detection
+  - Grasping, Moving, and Calibration
+  - Obstacle Avoidance
+- References
 
 ## 1 - OUTLINE and INTRODUCTION 
 ------
@@ -54,7 +57,7 @@ The most challenging task in this section is none of three mentioned above, but 
 
 ### 1.3 - Obstacle Avoidance
 -------
-Needs researching. 
+[Research](https://github.com/ArthasMenethil-A/Delta-Parallel-Robot-PPO-And-Obstacle-Avoidance/tree/main/Research/Obstacle%20Avoidance)
 
 ### 1.4 - Errors
 -------
