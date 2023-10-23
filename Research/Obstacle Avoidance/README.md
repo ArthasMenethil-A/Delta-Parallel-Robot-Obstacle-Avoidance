@@ -8,6 +8,6 @@ Overview:
 
 ## References
 ------
-[1] Springer Handbook of Robotics: Chapter 35 - Motion Planning and Obstacle Avoidance - This chapter describes motion planning and obstacle avoidance for **mobile robots**. 
+[1] Springer Handbook of Robotics: Chapter 35 - Motion Planning and Obstacle Avoidance - <font size="1"> This chapter describes motion planning and obstacle avoidance for **mobile robots**. </font>
 
 [2] 
