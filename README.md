@@ -1,4 +1,4 @@
-# Delta Parallel Robot - PPO and Obstacle Avoidance
+# Delta Parallel Robot - Obstacle Avoidance
 ------
 <ins>**A word from me:**</ins> 
 
