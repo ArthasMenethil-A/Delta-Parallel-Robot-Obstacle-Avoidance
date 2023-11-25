@@ -96,18 +96,22 @@ First and formost, the ideal way to code the controller is with C++ since it's a
 
 ### 2.1 - Kinematics Errors
 -------
-
+The problem of kinematic and geometry is this: we design a robot and build it, but the built model will never be a perfect replika to the designed model. In this instance let's say we set the three upper arms of the robot to be 30.9 cm, but the built model will have three arms of 31, 30.5, 31.2 cm. This means the calculations that we simplify in calculating the forward and inverse kinematics will give us a certain error. We don't want that error. The full report on the kinematics study of DPR is included in [this file](https://github.com/ArthasMenethil-A/Delta-Parallel-Robot-Obstacle-Avoidance/tree/main/Research/Kinematic%20Study) [1].
 
 ### 2.2 - Homing Errors
 -------
+*WIP* -Using Microswitch-
 
-
-## 3 - Object Detection
+## 3 - Image Processing
 -------
+You know what object detection is. the first goal of the alogrithm is to detect some classes of objects. Then we have to identify which one is the target and which one is the obstacle. 
 
 ## 3.1 - Dataset
 -------
+The dataset used is link [here](https://universe.roboflow.com/delta-parallel-robot-obstacle-avoidance-project/tube-detection-x52mi). 
 
 
 ## REFERENCES 
 ------
+[1] Kinematic Analysis of Delta Parallel Robot: Simulation Study - A. Eltayeb
+
