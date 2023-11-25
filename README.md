@@ -82,11 +82,17 @@ Before starting the project there are a bunch of errors that need attention:
 
 ## 2 - Setup Challenges and Solutions 
 -------
-
+This section is dedicated to addressing the issues of developement which may result in errors which decreases the overall performance of the robot.
 
 ### 2.0 - Modular Code 
 -------
+First and formost, the ideal way to code the controller is with C++ since it's a lot faster than Python. But since this is for the purpose of research and not industrial use, we're going to make do with Python. But the code needs to be more modular from here onwards. The codes are included [here](https://github.com/ArthasMenethil-A/Delta-Parallel-Robot-Obstacle-Avoidance/tree/main/DPR%20Controller). The files include the following content: 
 
+- `DPR_drivercom.py`: The functions of communication with robot + PID controller
+- `DPR_pathplanning.py`: The functions of Commands for path planning 
+- `delta_robot.py`: The geometry of the robot 
+- `path_planning_mltp.py`: the functions of multi point path planning 
+- `path_planning_ptp.py`: the functions of point to point path planning
 
 ### 2.1 - Kinematics Errors
 -------
