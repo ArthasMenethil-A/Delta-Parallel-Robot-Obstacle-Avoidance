@@ -80,19 +80,28 @@ Before starting the project there are a bunch of errors that need attention:
 4. Homing errors
 5. The Code is really messy and the user interface is lacking
 
-## 3 - Setup Challenges and Solutions 
--------
-
-### 3.0 - Modular Code 
--------
-
-### 3.1 - Kinematics Errors
+## 2 - Setup Challenges and Solutions 
 -------
 
 
-### 3.2 - Homing Errors
+### 2.0 - Modular Code 
 -------
 
 
-## 2 - REFERENCES 
+### 2.1 - Kinematics Errors
+-------
+
+
+### 2.2 - Homing Errors
+-------
+
+
+## 3 - Object Detection
+-------
+
+## 3.1 - Dataset
+-------
+
+
+## REFERENCES 
 ------
