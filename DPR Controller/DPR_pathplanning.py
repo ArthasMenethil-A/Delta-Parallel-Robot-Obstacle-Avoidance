@@ -62,6 +62,11 @@ def _is_point_inside_triangle(P):
 # moves the EE from initial point to final point 
 # final_xyz = [x_final, y_final, z_final]
 def Goto_xyz(final_xyz, duration, trajectory='4567'):
+
+
+    if not(_is_point_inside_triangle(final_xyz[0:2]) and (final_xyz[2] <= -37) and (final_xyz[2] >= -70)):
+        return 
+    
     
     start_time = datetime.datetime.now()
     
@@ -82,8 +87,6 @@ def Goto_xyz(final_xyz, duration, trajectory='4567'):
         
     dtime = 0 
     
-    counter = 0
-
     # history 
     time_history = []
     theta_history = []
@@ -209,9 +212,6 @@ def mltp_cubic_spline(path, duration):
     start_time = datetime.datetime.now()
     dtime = 0 
     
-    counter = 0
-
-
     # history 
     time_history = []
     theta_history = []
@@ -335,11 +335,11 @@ def EE_manual_controller(movement_speed=0.1):
                     key_down_pressed = True
                 elif event.key == K_LEFT:
                     print("key left is pressed")
-                    Motion_x_endeffector(movement_speed)
+                    Motion_x_endeffector(-movement_speed)
                     key_left_pressed = True
                 elif event.key == K_RIGHT:
                     print("key right is pressed")
-                    Motion_x_endeffector(-movement_speed)
+                    Motion_x_endeffector(movement_speed)
                     key_right_pressed = True
                 elif event.key == K_w:
                     print("key w is pressed")

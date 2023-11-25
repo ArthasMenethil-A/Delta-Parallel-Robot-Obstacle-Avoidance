@@ -240,6 +240,8 @@ class PathPlannerMLTP:
 
 if __name__ == "__main__":
 
+	pass 
+
 	# TEST 1
 
 	# # defining robot 

@@ -46,18 +46,20 @@ tan60  = sqrt3
 sin30  = 0.5
 tan30  = 1.0 / sqrt3
 
-# =================================================================================================
-# -- driver functions -----------------------------------------------------------------------------
-# =================================================================================================
-
-def Activate_serials():
+STARTING_ROBOT = input("Activate Serials?(y/n)")
+if STARTING_ROBOT.upper() == 'Y':
     Actuator1_serial = serial.Serial(port='COM3',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
     Actuator2_serial = serial.Serial(port='COM4',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
     Actuator3_serial = serial.Serial(port='COM5',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
 
 
+# =================================================================================================
+# -- driver functions -----------------------------------------------------------------------------
+# =================================================================================================
+
 
 def Close_serial():
+
     Actuator1_serial.close()
     Actuator2_serial.close()
     Actuator3_serial.close()
@@ -183,10 +185,10 @@ def Current_mode(ID):
 
 
 def Target_speed_rpm(ID,Speed_rpm):
-    if Speed_rpm > 3:
-        Speed_rpm = 3
-    if Speed_rpm < -3:
-        Speed_rpm = -3
+    if Speed_rpm > 2:
+        Speed_rpm = 2
+    if Speed_rpm < -2:
+        Speed_rpm = -2
         
     Speed_Decimal = math.floor(Speed_rpm*2730.66*Gear_ratio)  ###### remember to add 50 for gearbox effect
     object_value = Speed_Decimal
@@ -241,6 +243,12 @@ def Target_torque (ID,Target_Torque_Nm):
 
 
 def Enable_all_drivers(mode):
+
+    answer = input("Is robot in home position?(y/n)")
+
+    if answer.upper() != "Y":
+        return
+
     ## Torque mode ==> mode = 4
     ## Speed Mode ==> mode = -3
     Drive_enable(1)
@@ -256,7 +264,14 @@ def Enable_all_drivers(mode):
     
     Offset()
 
+    print("\033[91mPlease Remove The Bars!\033[0m")
+
 def Disable_all_drivers():
+
+    disable_flag = input("Are you sure you want to disable?(y/n)")
+    if disable_flag.upper() != "Y":
+        return
+        
     Target_speed_rpm(1,0)
     Target_torque(1, 0)
     Drive_disable(1)
