@@ -48,8 +48,11 @@ The objects that need to be detected are divided into two main classes:
 
 Of course, these two classes can include the same objects, for example if a test tube is not the target of the pick-and-place operation, then it's an obstacle. But we'll go into more detail later on. The main contenders for Object Detection are: 
 
-- Open-CV
-- Yolo-V5 Ultralytics
+- Open-CV: Classic Edge Detection
+- Yolo-V5: Ultralytics
+- Yolo-V8: Ultralytics
+- Mask RCNN: Object Segmentation, Detection
+- U-Net: Object Segmentation, Detection
 
 
 ### 1.2 - Grasping, Moving, and Calibration
