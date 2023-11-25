@@ -2,7 +2,7 @@
 ------
 <ins>**A word from me:**</ins> 
 
-This is the newest project I want to start working on. After figuring out trajectory planning of Delta Parallel Robot (DPR) in my previous project, I wanted to do something a bit more advanced. So the ultimate abmition for this project is:
+This is the newest project I want to start working on. After figuring out trajectory planning of Delta Parallel Robot (DPR) in my previous project, I wanted to do something a bit more advanced. So the abmition for this project is:
 **Detect the target object with Image Processing, then move it through dynamic obstacles to reach a certain position.**
 
 So ... yeah ... it's a bit of a step up from my last project. If you need to ask any questions, here's my email: 
@@ -16,17 +16,23 @@ Overview:
   - Object Detection
   - Grasping, Moving, and Calibration
   - Obstacle Avoidance
+  - Errors
+- Errors
+  - Kinematics 
+- Object Detection
+  - Dataset
+  - Yolo-V5 Implementation and Results
 - References
 
 ## 1 - OUTLINE and INTRODUCTION 
 ------
-There are four key elements to this project:
+There are 3 key elements to this project:
 
 1. Object Detection
 2. Grasping, Moving, and Calibration
 3. Obstacle Avoidance
 
-These four elements need to be implemented separately and then fused together. So let's talk about each of them individually. 
+These 3 elements need to be implemented separately and then fused together. So let's talk about each of them individually. 
 
 
 ### 1.1 - Object Detection
