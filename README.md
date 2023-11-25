@@ -43,6 +43,7 @@ The objects that need to be detected are divided into two main classes:
 2. Obstacles (objects that will block robot movement)
 
 ![Object Detection](https://miro.medium.com/v2/resize:fit:828/format:webp/1*hIp11kgQiIoV6YRESsui7Q.jpeg)
+
 [Image Source](https://towardsdatascience.com/google-object-detection-api-to-detect-brand-logos-fd9e113725d8)
 
 Of course, these two classes can include the same objects, for example if a test tube is not the target of the pick-and-place operation, then it's an obstacle. But we'll go into more detail later on. The main contenders for Object Detection are: 
