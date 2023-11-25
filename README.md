@@ -17,8 +17,9 @@ Overview:
   - Grasping, Moving, and Calibration
   - Obstacle Avoidance
   - Errors
-- Errors
-  - Kinematics 
+- Setup Challenges and Solutions 
+  - Kinematics Errors
+  - Homing Errors 
 - Object Detection
   - Dataset
   - Yolo-V5 Implementation and Results
@@ -78,6 +79,20 @@ Before starting the project there are a bunch of errors that need attention:
 3. Calibration with camera
 4. Homing errors
 5. The Code is really messy and the user interface is lacking
+
+## 3 - Setup Challenges and Solutions 
+-------
+
+### 3.0 - Modular Code 
+-------
+
+### 3.1 - Kinematics Errors
+-------
+
+
+### 3.2 - Homing Errors
+-------
+
 
 ## 2 - REFERENCES 
 ------
