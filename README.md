@@ -68,7 +68,7 @@ The most challenging task in this section is none of three mentioned above, but 
 
 ### 1.3 - Obstacle Avoidance
 -------
-[Research](https://github.com/ArthasMenethil-A/Delta-Parallel-Robot-PPO-And-Obstacle-Avoidance/tree/main/Research/Obstacle%20Avoidance)
+We need to be able to maneuver the robot through Static/Dynamic obstacles to reach a certain target. 
 
 ### 1.4 - Errors
 -------
@@ -86,6 +86,9 @@ This section is dedicated to addressing the issues of developement which may res
 
 ### 2.0 - Modular Code 
 -------
+
+![DPR scheme](https://github.com/ArthasMenethil-A/Delta-Parallel-Robot-Obstacle-Avoidance/assets/69509720/d15208d6-85fe-4506-92e2-a2755f0116d3)
+
 First and formost, the ideal way to code the controller is with C++ since it's a lot faster than Python. But since this is for the purpose of research and not industrial use, we're going to make do with Python. But the code needs to be more modular from here onwards. The codes are included [here](https://github.com/ArthasMenethil-A/Delta-Parallel-Robot-Obstacle-Avoidance/tree/main/DPR%20Controller). The files include the following content: 
 
 - `DPR_drivercom.py`: The functions of communication with robot + PID controller
@@ -96,6 +99,9 @@ First and formost, the ideal way to code the controller is with C++ since it's a
 
 ### 2.1 - Kinematics Errors
 -------
+
+![Delta Parallel Robot](https://github.com/ArthasMenethil-A/Delta-Parallel-Robot-Obstacle-Avoidance/assets/69509720/140d367c-5eec-4489-b82d-ee53d1928131)
+
 The problem of kinematic and geometry is this: we design a robot and build it, but the built model will never be a perfect replika to the designed model. In this instance let's say we set the three upper arms of the robot to be 30.9 cm, but the built model will have three arms of 31, 30.5, 31.2 cm. This means the calculations that we simplify in calculating the forward and inverse kinematics will give us a certain error. We don't want that error. The full report on the kinematics study of DPR is included in [this file](https://github.com/ArthasMenethil-A/Delta-Parallel-Robot-Obstacle-Avoidance/tree/main/Research/Kinematic%20Study) [1].
 
 ### 2.2 - Homing Errors
