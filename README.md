@@ -100,11 +100,6 @@ First and formost, the ideal way to code the controller is with C++ since it's a
 
 The problem of kinematic and geometry is this: we design a robot and build it, but the built model will never be a perfect replika to the designed model. In this instance let's say we set the three upper arms of the robot to be 30.9 cm, but the built model will have three arms of 31, 30.5, 31.2 cm. This means the calculations that we simplify in calculating the forward and inverse kinematics will give us a certain error. We don't want that error. The full report on the kinematics study of DPR is included in [this file](https://github.com/ArthasMenethil-A/Delta-Parallel-Robot-Obstacle-Avoidance/tree/main/Research/Kinematic%20Study) [1].
 
-### 2.2 - Homing Errors
--------
-*WIP* -Using Microswitch-
-
-
 ### 2.2 - PID Controller Errors
 -------
 This was pretty simple in conceptual terms. We have a PID controller and the coefficients of kp, ki, kd are not fine-tuned and pretty random. That make the robot slow and inaccurate. So regarding this matter to fix it, in the file `DPR_pathplanning.py` we wrote the following function: 
@@ -177,6 +172,11 @@ kd3 = 0.1
 ```
 
 So the robot movement became incredibly more precise and faster. The precision measured when moving a distance of 10 cm in 0.8 seconds was 0.5 mm which was a huge improvement to previous errros.
+
+
+### 2.3 - Homing Errors
+-------
+*WIP* -Using Microswitch-
 
 
 ## 3 - Image Processing
