@@ -194,6 +194,8 @@ The dataset used is link [here](https://universe.roboflow.com/delta-parallel-rob
 - Tube Available Space
 - Petridish
 
+![Dataset Samples](https://github.com/ArthasMenethil-A/Delta-Parallel-Robot-Obstacle-Avoidance/assets/69509720/53f57fb9-ab16-4d12-b09e-b5a4504ddd9a)
+
 
 ## REFERENCES 
 ------
