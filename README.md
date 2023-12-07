@@ -185,7 +185,14 @@ You know what object detection is. the first goal of the alogrithm is to detect 
 
 ## 3.1 - Dataset
 -------
-The dataset used is link [here](https://universe.roboflow.com/delta-parallel-robot-obstacle-avoidance-project/tube-detection-x52mi). 
+The dataset used is link [here](https://universe.roboflow.com/delta-parallel-robot-obstacle-avoidance-project/tube-detection-x52mi). The classes of our dataset are:
+
+- Tube - Open
+- Tube - Close
+- Tube - Full
+- Tube Rack
+- Tube Available Space
+- Petridish
 
 
 ## REFERENCES 
