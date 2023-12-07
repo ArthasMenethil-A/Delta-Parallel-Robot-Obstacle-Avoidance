@@ -104,6 +104,81 @@ The problem of kinematic and geometry is this: we design a robot and build it, b
 -------
 *WIP* -Using Microswitch-
 
+
+### 2.2 - PID Controller Errors
+-------
+This was pretty simple in conceptual terms. We have a PID controller and the coefficients of kp, ki, kd are not fine-tuned and pretty random. That make the robot slow and inaccurate. So regarding this matter to fix it, in the file `DPR_pathplanning.py` we wrote the following function: 
+
+```
+def PID_goto(last_position, duration):
+   
+
+    kp3 = float(input('kp:\n'))
+    ki3 = float(input('ki:\n'))
+    kd3 = float(input('kd:\n'))
+
+    pid3.set_PID_constants(kp3, ki3, kd3)
+
+    start_time = datetime.datetime.now()
+
+    dtime = 0
+    
+    time_history = []
+    velocity_history = []
+
+
+    while dtime<duration:
+
+        last_time = datetime.datetime.now()
+        dtime = (last_time - start_time).total_seconds()
+        time_history.append(dtime)
+        
+        in1 = Position_absolute_read(1)
+        in2 = Position_absolute_read(2)
+        in3 = Position_absolute_read(3)
+        
+        
+
+        feedback = [in1, in2, in3]
+
+        system_input = implement_PID(last_position, feedback)
+
+        velocity_history.append(system_input)
+
+
+        Target_speed_rpm(1, system_input[0])
+        Target_speed_rpm(2, system_input[1])
+        Target_speed_rpm(3, system_input[2])
+        
+    
+    print(np.max(np.abs(np.array(velocity_history)),axis = 0))
+
+    Motion_z_endeffector(0)
+    plt.plot(time_history,velocity_history, label=[["motor1"], ["motor2"], ["motor3"]])
+    plt.legend()
+    plt.show()
+    
+```
+
+Using this function we could basically change the PID values and output a plot of the robot behavior. After starting with the values of $k_p = 0.1, \quad k_i = 0.01, \quad k_d = 0.01$ for all motors, we reach the following values for each motor: 
+
+```
+kp1 = 1.3
+ki1 = 0.0008
+kd1 = 0.12
+
+kp2 = 1.6
+ki2 = 0.0006
+kd2 = 0.1
+
+kp3 = 1.9
+ki3 = 0.0006
+kd3 = 0.1
+```
+
+So the robot movement became incredibly more precise and faster. The precision measured when moving a distance of 10 cm in 0.8 seconds was 0.5 mm which was a huge improvement to previous errros.
+
+
 ## 3 - Image Processing
 -------
 You know what object detection is. the first goal of the alogrithm is to detect some classes of objects. Then we have to identify which one is the target and which one is the obstacle. 
