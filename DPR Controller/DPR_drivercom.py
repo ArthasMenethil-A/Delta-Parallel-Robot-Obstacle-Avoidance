@@ -1,3 +1,7 @@
+# This file is used for the basic commands to the driver for example enabling/disabling drivers and shit 
+
+# The PID controller class is also in this file 
+
 # =================================================================================================
 # -- imports --------------------------------------------------------------------------------------
 # =================================================================================================
@@ -11,6 +15,14 @@ import pygame
 import keyboard
 import sys 
 import datetime
+
+import timeit
+import struct
+import scipy.io as sio ## for reading and writing MATLAB mat files
+from numpy import linalg as LA
+import matplotlib.pyplot as plt
+from scipy.optimize import fsolve
+
 
 # =================================================================================================
 # -- max tries ------------------------------------------------------------------------------------
@@ -46,16 +58,19 @@ tan60  = sqrt3
 sin30  = 0.5
 tan30  = 1.0 / sqrt3
 
-STARTING_ROBOT = input("Activate Serials?(y/n)")
-if STARTING_ROBOT.upper() == 'Y':
-    Actuator1_serial = serial.Serial(port='COM3',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
-    Actuator2_serial = serial.Serial(port='COM4',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
-    Actuator3_serial = serial.Serial(port='COM5',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
-
 
 # =================================================================================================
 # -- driver functions -----------------------------------------------------------------------------
 # =================================================================================================
+
+
+def Activate_serial():
+    global Actuator1_serial, Actuator2_serial, Actuator3_serial
+    STARTING_ROBOT = input("Activate Serials?(y/n)")
+    if STARTING_ROBOT.upper() == 'Y':
+        Actuator1_serial = serial.Serial(port='COM3',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
+        Actuator2_serial = serial.Serial(port='COM4',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
+        Actuator3_serial = serial.Serial(port='COM5',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
 
 
 def Close_serial():
@@ -185,10 +200,10 @@ def Current_mode(ID):
 
 
 def Target_speed_rpm(ID,Speed_rpm):
-    if Speed_rpm > 2:
-        Speed_rpm = 2
-    if Speed_rpm < -2:
-        Speed_rpm = -2
+    if Speed_rpm > 20:
+        Speed_rpm = 20
+    if Speed_rpm < -20:
+        Speed_rpm = -20
         
     Speed_Decimal = math.floor(Speed_rpm*2730.66*Gear_ratio)  ###### remember to add 50 for gearbox effect
     object_value = Speed_Decimal
@@ -264,7 +279,7 @@ def Enable_all_drivers(mode):
     
     Offset()
 
-    print("\033[91mPlease Remove The Bars!\033[0m")
+    input("\033[91mPlease Remove The Bars!\033[0m")
 
 def Disable_all_drivers():
 
@@ -705,8 +720,8 @@ class PID:
         self.SampleTime=SampleTime
         sampleTimeInSec=SampleTime/1000 
         self.kp=Kp
-        self.ki=Ki*sampleTimeInSec
-        self.kd=Kd/sampleTimeInSec
+        self.ki=Ki#*sampleTimeInSec
+        self.kd=Kd#/sampleTimeInSec
         self.lastError=0
         self.integralTerm=0 #used for I term
         self.integralTerm_torque = 0 #used for I term
@@ -725,6 +740,10 @@ class PID:
             self.Error = self.setPoint-feedback
             # print("this is error: " + str(self.Error))
             dError = self.Error-self.lastError #error- last error
+            
+            
+            self.lastError = self.Error #added
+            
             
             self.integralTerm = self.integralTerm+self.ki*self.Error
 
@@ -795,37 +814,6 @@ class PID:
         self.ki = Ki
         self.kd = Kd
 
-
-
-pids=[]
-kp = 0.1
-ki = 0.01
-kd = 0.01
-#3 pids for 3 angles
-
-positionReadFailed=0
-
-pid1=PID(kp,ki,kd)
-pid2=PID(kp,ki,kd)
-pid3=PID(kp,ki,kd)
-
-
-def implement_PID(set_point_coord,feedback):
-    controllerOutput = []
-
-    # converting xyz coord to angle by inverse kinematics
-    E,theta1,theta2,theta3=Inverse(set_point_coord[0],set_point_coord[1],set_point_coord[2])
-    
-    #system input is the return value of controller
-    pid1.DefineSetpoint(theta1)
-    pid2.DefineSetpoint(theta2)
-    pid3.DefineSetpoint(theta3)
-   
-    controllerOutput.append(pid1.Compute(feedback[0]))
-    controllerOutput.append(pid2.Compute(feedback[1]))
-    controllerOutput.append(pid3.Compute(feedback[2]))
-    
-    return controllerOutput
 
 
 

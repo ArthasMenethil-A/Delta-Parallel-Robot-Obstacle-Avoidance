@@ -1,3 +1,7 @@
+# Move the robot manually. This file the highest level functions of the DPR controller files
+
+# It also has a function for implementing the PID controller class 
+
 # =================================================================================================
 # -- imports --------------------------------------------------------------------------------------
 # =================================================================================================
@@ -25,6 +29,37 @@ from pygame import K_SPACE
 from pygame import K_w 
 from pygame import K_q 
 from pygame import K_s 
+
+
+# =================================================================================================
+# -- constants ------------------------------------------------------------------------------------
+# =================================================================================================
+
+# these are the pid controller coefficients for each of the motors which are fine tuned to our robot 
+
+kp1 = 1.3
+ki1 = 0.0008
+kd1 = 0.12
+
+
+kp2 = 1.6
+ki2 = 0.0006
+kd2 = 0.1
+
+
+kp3 = 1.9
+ki3 = 0.0006
+kd3 = 0.1
+
+
+
+#3 pids for 3 angles
+
+pid1=PID(kp1,ki1,kd1)
+pid2=PID(kp2,ki2,kd2)
+pid3=PID(kp3,ki3,kd3)
+
+
 
 # =================================================================================================
 # -- path planning point to point -----------------------------------------------------------------
@@ -59,13 +94,16 @@ def _is_point_inside_triangle(P):
     return (u >= 0) and (v >= 0) and (u + v <= 1)
 
 
+
+
+
 # moves the EE from initial point to final point 
 # final_xyz = [x_final, y_final, z_final]
 def Goto_xyz(final_xyz, duration, trajectory='4567'):
+    
 
-
-    if not(_is_point_inside_triangle(final_xyz[0:2]) and (final_xyz[2] <= -37) and (final_xyz[2] >= -70)):
-        return 
+    # if not(_is_point_inside_triangle(final_xyz[0:2]) and (final_xyz[2] <= -37) and (final_xyz[2] >= -70)):
+    #     return 
     
     
     start_time = datetime.datetime.now()
@@ -144,6 +182,7 @@ def Goto_xyz(final_xyz, duration, trajectory='4567'):
     Motion_z_endeffector(0)
 
 
+
     # uncomment if want to save plot 
     # with open('time_history_' + trajectory + '.npy', 'wb') as file:
     #     np.save(file, time_history)
@@ -154,7 +193,7 @@ def Goto_xyz(final_xyz, duration, trajectory='4567'):
     # with open('angular_speed_history_' + trajectory + '.npy', 'wb') as file:
     #     np.save(file, angular_speed_history)
 
-
+# helper function of 4-5-6-7 interpolating polynomial trajectory
 def _trajectory_4567(time_map,time_shift,start_time): #return value within 0 , 1
     last_time=datetime.datetime.now()
     dtime=(last_time-start_time).total_seconds()
@@ -162,13 +201,15 @@ def _trajectory_4567(time_map,time_shift,start_time): #return value within 0 , 1
     s=-20*(tau**7)+70*(tau**6)-84*(tau**5)+35*(tau**4)
     return s
 
-
+# helper function of 3-4-5 interpolating polynomial trajectory
 def _trajectory_345(time_map, time_shift, start_time):
     last_time = datetime.datetime.now()
     dtime = (last_time - start_time).total_seconds()
     tau = (dtime - time_shift)/time_map
     s = 6*(tau**5) - 15*(tau**4) + 10*(tau**3)
     return s 
+
+
 
 
 # =================================================================================================
@@ -284,6 +325,56 @@ def mltp_cubic_spline(path, duration):
     #     np.save(file, angular_speed_history)
 
 
+
+# =================================================================================================
+# -- movement using PID without trajectory  -------------------------------------------------------
+# =================================================================================================
+
+def PID_goto(last_position, duration):
+   
+   
+    start_time = datetime.datetime.now()
+
+    dtime = 0
+    
+    time_history = []
+    velocity_history = []
+
+
+    while dtime<duration:
+
+        last_time = datetime.datetime.now()
+        dtime = (last_time - start_time).total_seconds()
+        time_history.append(dtime)
+        
+        in1 = Position_absolute_read(1)
+        in2 = Position_absolute_read(2)
+        in3 = Position_absolute_read(3)
+        
+        
+
+        feedback = [in1, in2, in3]
+
+        system_input = implement_PID(last_position, feedback)
+
+        velocity_history.append(system_input)
+
+
+        Target_speed_rpm(1, system_input[0])
+        Target_speed_rpm(2, system_input[1])
+        Target_speed_rpm(3, system_input[2])
+        
+    
+    print(np.max(np.abs(np.array(velocity_history)),axis = 0))
+
+    Motion_z_endeffector(0)
+    plt.plot(time_history,velocity_history, label=[["motor1"], ["motor2"], ["motor3"]])
+    plt.legend()
+    plt.show()
+    
+
+
+
 # =================================================================================================
 # -- manual control -------------------------------------------------------------------------------
 # =================================================================================================
@@ -379,12 +470,42 @@ def EE_manual_controller(movement_speed=0.1):
     pygame.quit()
 
 
+
+
+# =================================================================================================
+# -- PID controller impelementation ---------------------------------------------------------------
+# =================================================================================================
+
+
+
+def implement_PID(set_point_coord,feedback):
+    
+    controllerOutput = []
+
+    # converting xyz coord to angle by inverse kinematics
+    E,theta1,theta2,theta3=Inverse(set_point_coord[0],set_point_coord[1],set_point_coord[2])
+    
+    #system input is the return value of controller
+    pid1.DefineSetpoint(theta1)
+    pid2.DefineSetpoint(theta2)
+    pid3.DefineSetpoint(theta3)
+   
+    controllerOutput.append(pid1.Compute(feedback[0]))
+    controllerOutput.append(pid2.Compute(feedback[1]))
+    controllerOutput.append(pid3.Compute(feedback[2]))
+    
+    return controllerOutput
+
+
+
+
 # =================================================================================================
 # -- main -----------------------------------------------------------------------------------------
 # =================================================================================================
 
 def main():
-	pass 
+    Activate_serial()
+    Enable_all_drivers(-3)
 
 if __name__ == "__main__":
 	main()

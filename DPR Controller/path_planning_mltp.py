@@ -1,3 +1,7 @@
+# This file is for different multi-point trajectory planning mehtods' implementation
+# The DPR_pathplanning.py file directly uses this file for cubic spline method  
+
+
 
 # =================================================================================================
 # -- imports --------------------------------------------------------------------------------------
