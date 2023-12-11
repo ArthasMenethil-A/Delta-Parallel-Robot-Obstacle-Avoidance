@@ -117,7 +117,7 @@ ki3 = 0.0006
 kd3 = 0.1
 ```
 
-So the robot movement became incredibly more precise and faster. The precision measured when moving a distance of 10 cm in 0.8 seconds was 0.5 mm which was a huge improvement to previous errros.
+So the robot movement became incredibly more precise and faster. The precision measured when moving a distance of 20 cm in 0.8 seconds was 0.2 mm which was a huge improvement to previous errros.
 
 
 ### 1.4 - Homing Errors
